@@ -31,11 +31,18 @@ Notes :-
 
 5. [ deselect Animation ]                       Task 5: Animation when clicking out of the blog
     Status: Not Started
+    Status: Done       17/9/2024
 
 
 6. [ Toggle function ]                       Task 6: Make the function that will make these actions
     Status: Not Started
+    Status: In Progress 
 
+Notes for me :-
+ remaining bugs to fix:
+ 1. fix the unfocused animation
+ 2. fix no focused mode
+ 3. fix the toggle button
 
 Notes:
 ------

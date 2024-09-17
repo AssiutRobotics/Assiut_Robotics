@@ -344,6 +344,8 @@
 @keyframes large {
     to{
        scale: 1.1;
+    box-shadow: 0px 0px 10px 5px #000000;
+
         
     }
 }
@@ -404,7 +406,7 @@ i:hover{
 .Noreadmore{
     display: none;
 }
-.animateIt{
+.focused .animateIt{
     height: fit-content;
     
     overflow: hidden;
@@ -416,5 +418,44 @@ i:hover{
     }
 }
 
-
+.disable{
+    display: nonea;
+}
 /* Unfocus shap */
+
+.unfocused{
+    animation: small 1s forwards;
+    position: relative;
+    padding: 1%;
+    overflow: hidden;
+    background-color: #b3dde4;
+    opacity: 1;
+}
+
+@keyframes small {
+    to{
+       scale: 1;
+       box-shadow: 5px 6px 3px #888888;
+    }
+    
+}
+
+.unfocused .content-container a{
+    transform: rotateZ(180deg);
+    animation: InverseRotating 1s forwards;
+}
+@keyframes InverseRotating {
+    to{
+        transform: rotateZ(0deg);
+    }
+}
+.unfocused .animateIt{
+    height: fit-content;
+    overflow: hidden;
+    animation: mini 2s forwards;
+}
+@keyframes mini{
+    to{
+        max-height: 0;
+    }
+}
