@@ -33,16 +33,28 @@ Notes :-
     Status: Not Started
     Status: Done       17/9/2024
 
+Notes :-
+- Add any additional notes or comments here.
 
 6. [ Toggle function ]                       Task 6: Make the function that will make these actions
     Status: Not Started
     Status: In Progress 
+    Status: Done  18 /9  
 
 Notes for me :-
  remaining bugs to fix:
- 1. fix the unfocused animation
- 2. fix no focused mode
- 3. fix the toggle button
+ 1. fix the unfocused animation Done
+ 2. fix no focused mode Done
+ 3. fix the toggle button  Done
+ 
+Notes :-
+- Add any additional notes or comments here.
+
+7. [ Make Toggle function valid for all element  ]                       Task 7: Make the function that will make these actions valid for all element 
+    Status: Not Started
+
+Notes :-
+- Add any additional notes or comments here.
 
 Notes:
 ------

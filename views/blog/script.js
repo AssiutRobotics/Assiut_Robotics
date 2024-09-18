@@ -41,42 +41,38 @@ function modeAction(mode,Blog,Body, BLOG_IMG , textContainer,title,contentContai
     console.log("modeAction ");
     
     if(mode === "no focused"){
+        Body.classList.add("nofocus");
         Blog.classList.add("unfocused");
-        Blog.addEventListener("animationend", () => {
-            
-            if(/*BLOG_IMG contains title */  BLOG_IMG.contains(title)){
+        setTimeout(() => {
+            if(/* BLOG_IMG contains title */  BLOG_IMG.contains(title)){
                 // delete title from it 
-                console.log("con1");
-                
+                console.log("con1");  
                 BLOG_IMG.removeChild(title);    
             }
             if(/*text-container Not contains title */  !textContainer.contains(title)){
                 // Add title To it 
                 console.log("con2");
-                textContainer.appendChild(title);
+                textContainer.insertBefore(title,textContainer.firstChild);
             }
-            if(/*animateIt contains text */  animateIt.TextContent != ""){
-                // Delete text from it 
-                console.log("con3");
-                animateIt.TextContent = "";
-            }
-            if(/*text-content Not contains text */  TextContent.textContent == "" ){
+            animateIt.classList.add("disabled");
+            if(/*text-content Not contains text */  contentContainer.textContent == "" ){
                 // Add text To it 
                 console.log("con4");
-                TextContent.textContent = Hcontent;
+                contentContainer.textContent = Hcontent;
             }
+
             Body.classList.remove("focus");
+            Body.classList.remove("nofocus");
             Blog.classList.remove("focused");
             Blog.classList.remove("unfocused");
-        })
-        
+        }, 2000);
     }
     else if(mode === "focused"){
         Blog.classList.remove("unfocused");
-
+        Body.classList.remove("nofocus");
         if(/*BLOG_IMG Not contains title */ !BLOG_IMG.contains(title) ){
             // Add title To it  
-            console.log("con 1", !BLOG_IMG.contains(title) );
+            console.log("con 1",  !BLOG_IMG.contains(title));
             BLOG_IMG.insertBefore(title,BLOG_IMG.firstChild);
         }
         if(/*text-container  contains title */ textContainer.contains(title)){
@@ -84,15 +80,12 @@ function modeAction(mode,Blog,Body, BLOG_IMG , textContainer,title,contentContai
             console.log("con 1", textContainer.contains(title) );
             // textContainer.removeChild(title);
         }
-        if(/*animateIt doesn't contain text */ animateIt.TextContent == ""){
-            // Add text To it 
             console.log("con 1", !BLOG_IMG.contains(title) );
-            animateIt.TextContent = Hcontent + content;
-        }
-        if(/*text-content contain text */ TextContent.textContent != ""){
+            animateIt.classList.remove('disabled');
+        if(/*text-content contain text */ contentContainer.textContent != ""){
             // remove text from it 
             console.log("con 1", !BLOG_IMG.contains(title) );
-            TextContent.textContent = "";
+            contentContainer.textContent = "";
         }
         Body.classList.add("focus");
         Blog.classList.add("focused");
@@ -103,26 +96,7 @@ function readMoreShow(){
     
     const toggleButton = document.querySelectorAll(".toggle-content")[0];
     let BlogId = toggleButton.id;
-    let mode = "no focused";
-    let BLOG_IMG = document.querySelector(".BLOG_IMG");
-    let textContainer = document.querySelector(".text-container");
-    let title = document.querySelector(".title");
-    let TextContent = document.querySelector(".text-content");
-    let animateIt = document.querySelector(".animateIt");
-    let Hcontent = document.querySelector(".text-content").textContent;
-    let content = document.querySelector(".text-content").textContent;
-    let Body = document.querySelector("body");
-    let Blog = document.getElementById(BlogId);
-    toggleButton.addEventListener("click", () => {
-    modeAction(mode,Blog,Body ,BLOG_IMG , textContainer,title,TextContent,animateIt,content,Hcontent);
-    console.log("==================================================================================");
-    })
-
-}
-
-const toggleButton = document.querySelectorAll(".toggle-content")[0];
-    let BlogId = toggleButton.id;
-    // let mode = "no focused";
+    let mode = "focused";
     let BLOG_IMG = document.querySelector(".BLOG_IMG");
     let contentContainer = document.querySelector(".content-container");
     let title = document.querySelector(".title");
@@ -132,7 +106,13 @@ const toggleButton = document.querySelectorAll(".toggle-content")[0];
     let content = document.querySelector(".text-content").textContent;
     let Body = document.querySelector("body");
     let Blog = document.getElementById(BlogId);
+    toggleButton.addEventListener("click", () => {
     modeAction(mode,Blog,Body ,BLOG_IMG , contentContainer,title,TextContent,animateIt,content,Hcontent);
+    mode = mode === "no focused" ? "focused" : "no focused";
+    })
+}
+
+    
 
 
 readMoreShow();

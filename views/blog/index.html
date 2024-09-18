@@ -22,7 +22,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body id="body" class="">
+<body id="body" class="focus nofocus">
    
     <!-- header -->
     <div id="myUniqueHeaderID"></div>
@@ -38,11 +38,12 @@
     </header>
     <div class="page-container">
         <!-- // div/ two divs one for text and one for image / text div has h1, p, a, div of calender with img and p / img div has img -->
-        <section class="pinnedBlog unfocused" id="1">  
+        <section class="pinnedBlog" id="1">  
             <!-- <i class="fa-solid fa-thumbtack"></i> -->
             <div class="text-container">  
                 <div class="content-container">
                     <!-- Here will be h1 when no focused -->
+                    <h1 class="title" style="color: var(--defaultColor);">Lorem ipsum is simply dummy text of the printing and typesetting industry.</h1>
 
                     <p class="text-content">
                         Lorem ipsum has been the industry's standard dummy text ever since the 1500s.
@@ -50,7 +51,7 @@
                         it has survived not only five centuries but also the leap into electronic typesetting, remaining
                         essentially unchanged.
                     </p>
-                    <p style="text-align: justify;" class=" animateIt disable">
+                    <p style="text-align: justify;" class="disabled animateIt">
                         <!-- Here will be All content when focused and class animateIt-->
                     
                         lorem ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
@@ -107,8 +108,6 @@
                 </div>
                 <div class="BLOG_IMG">
                     <!-- Here will be h1 when focus -->
-                    <h1 class="title" style="color: var(--defaultColor);">Lorem ipsum is simply dummy text of the printing and typesetting industry.</h1>
-                   
                     <img src="../all-images/blogs/WWW.jpeg" alt="BLOG">
 
                 </div>
