@@ -129,6 +129,10 @@ body {
     padding: 20px;
   font-size: 4vh !important;
     border-radius: 12px;
+    margin-bottom: 20px;
+}
+.abstract .row{
+    flex-wrap: wrap-reverse !important;
 }
 
 .abstract .container {

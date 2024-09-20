@@ -20,21 +20,21 @@ body {
 /*Small*/
 @media (min-width:768px) {
     .container-sec {
-        width:860px;
+        max-width:860px;
     }
 }
 
 /*meduim*/
 @media (min-width:992px) {
     .container-sec {
-        width: 930px;
+        max-width: 930px;
     }
 }
 
 /*large*/
 @media (min-width:1200px) {
     .container-sec {
-        width: 1170px;
+        max-width: 1170px;
     }
 }
 
@@ -129,6 +129,10 @@ body {
     padding: 20px;
   font-size: 4vh !important;
     border-radius: 12px;
+    margin-bottom: 20px;
+}
+.abstract .row{
+    flex-wrap: wrap-reverse !important;
 }
 
 .abstract .container {
