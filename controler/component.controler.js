@@ -13,7 +13,7 @@ const addComponent = async (req, res) => {
         const { title, price, taxes, ads, discount, total, category } = req.body;
         //console.log(req.file.originalname);
         const component_image=await cloudinary.uploadToCloud(req.myFileName) ;
-        console.log("file name",req.myFileName);
+        // console.log("file name",req.myFileName);
         const newComponent = await new component({
             title,
             image:component_image,

@@ -7,15 +7,20 @@ const multer = require("multer");
 const diskStorage = multer.diskStorage({
     destination: (req, file, cb) => {
             cb(null, "uploads/");
-           // console.log("file dest", file);
+           console.log("file dest", file);
     },
     filename: (req, file, cb) => {
+        try{
             const ext = file.mimetype.split("/")[1];
 
             const filename = `${file.originalname.split(".")[0]+Date.now()}.${ext}`;
            console.log("filename:", filename);
             req.myFileName=filename;
             cb(null, filename);
+        }catch(error){
+                console.log(error);
+                
+        }
     },
 });
 
