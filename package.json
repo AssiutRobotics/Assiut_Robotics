@@ -15,11 +15,8 @@
     "speakeasy": "^2.0.0"
   },
   "scripts": {
-    "build": "npm run app", 
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
-  
-    "app": "nodemon index.js"
+  "start": "node index.js",
+  "dev": "nodemon index.js"
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"
