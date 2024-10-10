@@ -17,7 +17,7 @@ const addComponent = async (req, res) => {
         // console.log("file name",req.myFileName);
         const newComponent = await new component({
             title,
-            image:"ddd",
+            image:req.imageUrl,
             price,
             taxes,
             ads,

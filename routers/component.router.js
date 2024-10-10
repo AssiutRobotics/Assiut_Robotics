@@ -45,10 +45,7 @@ Router.route("/add").post(
             // Upload image to Cloudinary using the utility function
             const imageUrl = await uploadToCloud(req.file.path); // Passing the file path to Cloudinary
 
-            res.status(200).json({
-                message: 'Image uploaded successfully!',
-                url: imageUrl, // Cloudinary URL of the uploaded image
-            });
+            req.imageUrl=imageUrl
         } catch (error) {
             res.status(500).json({ message: 'Error uploading image', error });
         }
