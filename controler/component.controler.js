@@ -8,15 +8,16 @@ const cloudinary=require('../utils/cloudinary');
 
 const addComponent = async (req, res) => {
     try {
-       // console.log(req.body);
+       console.log("body : : ",);
 
         const { title, price, taxes, ads, discount, total, category } = req.body;
+
         //console.log(req.file.originalname);
-        const component_image=await cloudinary.uploadToCloud(req.myFileName) ;
+        // const component_image=await cloudinary.uploadToCloud(req.myFileName) ;
         // console.log("file name",req.myFileName);
         const newComponent = await new component({
             title,
-            image:component_image,
+            image:"ddd",
             price,
             taxes,
             ads,
@@ -29,6 +30,8 @@ const addComponent = async (req, res) => {
 
         res.status(200).send({ message: "add component successfully" });
     } catch (error) {
+        console.log(error);
+        
         res.status(400).send({ message: error.message });
     }
 }; 

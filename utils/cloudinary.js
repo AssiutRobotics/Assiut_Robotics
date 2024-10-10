@@ -16,9 +16,9 @@ try {
 
     console.log("cloudinary run");
     
-   const result=await cloudinary.uploader.upload( "uploads/"+filename)
+   const result=await cloudinary.uploader.upload(filename)
 
-   // console.log(result);
+//    console.log(result);
     const url=cloudinary.url(result.public_id,{
             transformation:{
                     fetch_format:"auto",
@@ -32,12 +32,13 @@ try {
     console.log(url);
     return url;
 } catch (error) {
-        console.log(error)
+        
 }        
     
 };
 
 
 module.exports={
-    uploadToCloud
+    uploadToCloud,
+    "cloud":cloudinary
 }
