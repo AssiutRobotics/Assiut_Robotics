@@ -1,9 +1,9 @@
 {
   "name": "assiut_robotics",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "start": "http-server ./ -p $PORT"
+  "main": "index.html",
+  "scripts":  {
+    "start": "npx http-server ./ -p $PORT"
   },
   "keywords": [],
   "author": "",
