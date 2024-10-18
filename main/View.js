@@ -180,16 +180,16 @@ class Slider {
 
 const ImageSlider = new Slider(document.querySelector(".image-slider"));
 
-document.querySelector(".slider-navigation").style =`
+document.querySelector(".slider-navigation").style = `
 grid-template-columns:repeat(${ImageSlider.navButtons.length}, 1fr);
 `
 setInterval(() => {
-        const imgs=ImageSlider.navButtons.length;
-        let index=ImageSlider.currentSlideIndex+1;
-        if(index>imgs-1)
-            index=0
-        ImageSlider.showSlide(index);
-        
-        
-        
+    const imgs = ImageSlider.navButtons.length;
+    let index = ImageSlider.currentSlideIndex + 1;
+    if (index > imgs - 1)
+        index = 0
+    ImageSlider.showSlide(index);
+
+
+
 }, 4000);
