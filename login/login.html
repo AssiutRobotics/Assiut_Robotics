@@ -24,7 +24,7 @@
     <div id="myUniqueHeaderID"></div>
     <div class="container">
 
-        <form id="loginForm" action="../../members/login" method="post">
+        <form id="loginForm" action="https://assiutrobotics-production.up.railway.app/members/login" method="post">
             <h2>MEMBER LOGIN</h2>
             <div class="input-box">
                 <input type="email" name="email" placeholder="email" required>
@@ -79,6 +79,7 @@
             })
 
         } catch (error) {
+            document.querySelector(".message").innerHTML = error;
 
         }
     </script>

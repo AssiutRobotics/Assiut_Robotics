@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile page</title>
     <link rel="stylesheet" href="style.css">
+    <!-- footer and header link -->
+     <link rel="stylesheet" href="../main/footerAndheader.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -19,6 +21,7 @@
 </head>
 
 <body onload="load()">
+    <div id="myUniqueHeaderID"></div>
 
 
     <nav>
@@ -145,8 +148,11 @@
             </div>
         </div>
     </div>
+    <div id="myUniqueFooterID"></div>
+    <script src="../main/footerAndheader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
+    <script src="../main/footerAndheader.js" defer></script>
     <script>
         const load = async () => {
             let token = window.localStorage.getItem("token");
@@ -155,7 +161,7 @@
                 token,
             }
             if (token) {
-                let response = await fetch("../members/verify", {
+                let response = await fetch("https://assiutrobotics-production.up.railway.app/members/verify", {
                     method: "post",
                     headers: {
                         "Content-Type": "application/json"
