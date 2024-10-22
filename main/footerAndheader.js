@@ -97,7 +97,7 @@ function implement_views() {
             })
         });
 
-    $.get("../main/footer.html"||"./main/footer.html", function (data) {
+    $.get("../main/footer.html", function (data) {
         $("#myUniqueFooterID").html(data);
     })
         .done(function () {
@@ -106,7 +106,7 @@ function implement_views() {
         .fail(function () {
             console.error("Error loading HTML content. #Footer");
             $.get("./main/footer.html", function (data) {
-                $("#myUniqueHeaderID").html(data);
+                $("#myUniqueFooterID").html(data);
             })
         });
 }
