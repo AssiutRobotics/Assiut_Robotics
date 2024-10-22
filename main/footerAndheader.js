@@ -83,7 +83,7 @@ function setupColumns() {
 }
 
 function implement_views() {
-    $.get("../main/header.html"||"./main/header.html", function (data) {
+    $.get("../main/header.htmL", function (data) {
         $("#myUniqueHeaderID").html(data);
     })
         .done(function () {
@@ -92,6 +92,9 @@ function implement_views() {
         })
         .fail(function () {
             console.error("Error loading HTML content. #Header");
+            $.get("./main/header.html", function (data) {
+                $("#myUniqueHeaderID").html(data);
+            })
         });
 
     $.get("../main/footer.html"||"./main/footer.html", function (data) {
@@ -102,6 +105,9 @@ function implement_views() {
         })
         .fail(function () {
             console.error("Error loading HTML content. #Footer");
+            $.get("./main/footer.html", function (data) {
+                $("#myUniqueHeaderID").html(data);
+            })
         });
 }
 
