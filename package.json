@@ -2,14 +2,19 @@
   "name": "assiut_robotics",
   "version": "1.0.0",
   "main": "index.html",
-  "scripts":  {
-    "start": "npx http-server ./ -p $PORT"
+  "scripts": {
+
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "http-server": "^14.1.1"
+    "cors": "^2.8.5",
+    "express": "^4.21.1",
+    "http-server": "^14.1.1",
+    "node": "^22.10.0",
+    "nodemon": "^3.1.7"
   }
 }
