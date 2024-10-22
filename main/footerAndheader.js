@@ -83,7 +83,7 @@ function setupColumns() {
 }
 
 function implement_views() {
-    $.get("../main/header.htmL", function (data) {
+    $.get("../main/header.html", function (data) {
         $("#myUniqueHeaderID").html(data);
     })
         .done(function () {
