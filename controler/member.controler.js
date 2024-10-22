@@ -374,9 +374,10 @@ const rate=async (req,res)=>{
 const changeProfileImage=async(req,res)=>{
 try {
     
-     const{ID}=req.body;
-        const oldMember = await member.findById( ID );
-        if(oldMember){
+    //  const{ID}=req.body;
+     const oldMember = await member.findOne({ email: req.decoded.email });
+     
+     if(oldMember){
             oldMember.avatar=req.imageUrl;
             oldMember.save();
             res.status(200).json({
