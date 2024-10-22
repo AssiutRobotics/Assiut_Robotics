@@ -80,7 +80,8 @@
                 <div class="info">
                     <h2 id="nameHuman">Hembo Tingor</h2>
                     <p id="specialty">Web Designer</p>
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <input type="file" name="" id="changePhoto" class="disabled">
+                    <label for="changePhoto"><i class="fa-regular fa-pen-to-square"></i></label>  
                 </div>
             </div>
 
@@ -148,6 +149,7 @@
 
 
     <script>
+        let id;
         const load = async () => {
             let token = window.localStorage.getItem("token");
             console.log(token);
@@ -169,6 +171,8 @@
                 } else {
                     const JSONresponse = await response.json();
                     console.log(JSONresponse);
+                    id = JSONresponse.data.id;
+                    edit()
                     if (JSONresponse.data.role < 4) {
                         document.getElementById('control-panel').style.display = "flex";
                     }
@@ -211,6 +215,33 @@
             window.alert("نورتنا  (: ")
             window.location.href = "../"
         }
+      
+      
+        function edit() {
+            let field = document.getElementById("changePhoto");
+            field.addEventListener("change", (e) => {
+                let token = window.localStorage.getItem("token");
+                let obj = {
+                    token: token,
+                    ID: id,
+                    file: e.target.files[0]
+                }     
+                console.log(obj); // token : token, ID: undefined, file: File
+
+                fetch("API WILL BE HERE", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: obj
+                }).then(res => res.json()).then(data => {
+                    console.log(data);
+                }).catch(err => {
+                    console.log(err);
+                })
+            })
+        }
+        
     </script>
 
 

@@ -63,75 +63,96 @@ const UseData = async () => {
     console.table(`members array =>`,members);
     
         //creating the team members board
-    let taps = document.querySelectorAll('.heads');
-    let tapHead = document.querySelectorAll('.head')[0];
-    let tapMembers = document.querySelectorAll('.members')[0];    
-    let col8 = document.querySelectorAll('.col-8')[0];
-    let col4 = document.querySelectorAll('.col-4')[0];
-    let vline = document.querySelectorAll('.vline')[0];
-    let hint = document.querySelectorAll('.hint')[0];
-    taps.forEach((tap,index) => {
-        tap.addEventListener('click', (t) => {
-            if(tapHead.classList.contains('disabled')){
-                tapHead.classList.remove('disabled')
-            }
-            if(col8.classList.contains('disabled')){
-                col8.classList.remove('disabled')
-            }
-            if(col4.classList.contains('disabled')){
-                col4.classList.remove('disabled')
-            }
-            if(vline.classList.contains('disabled')){
-                vline.classList.remove('disabled')
-            }
-            if(!hint.classList.contains('disabled')){
-                hint.classList.add('disabled')
-            }
-            tapMembers.innerHTML = '';
-            let img = tapHead.querySelector('img');
-            let name = tapHead.querySelector('h3');
-            
-                // make the head of the committee appear
-            
-                members[tap.id].forEach(e => {
-                if(e.role == 2){
-                    name.innerHTML = e.name;
-                    img.src = e.avatar;
+    {
+        let taps = document.querySelectorAll('.heads');
+        let tapHead = document.querySelectorAll('.head')[0];
+        let tapMembers = document.querySelectorAll('.members')[0];    
+        let col8 = document.querySelectorAll('.col-8')[0];
+        let col4 = document.querySelectorAll('.col-4')[0];
+        let vline = document.querySelectorAll('.vline')[0];
+        let hint = document.querySelectorAll('.hint')[0];
+        taps.forEach((tap,index) => {
+            tap.addEventListener('click', (t) => {
+                if(tapHead.classList.contains('disabled')){
+                    tapHead.classList.remove('disabled')
                 }
-            })
+                if(col8.classList.contains('disabled')){
+                    col8.classList.remove('disabled')
+                }
+                if(col4.classList.contains('disabled')){
+                    col4.classList.remove('disabled')
+                }
+                if(vline.classList.contains('disabled')){
+                    vline.classList.remove('disabled')
+                }
+                if(!hint.classList.contains('disabled')){
+                    hint.classList.add('disabled')
+                }
+                tapMembers.innerHTML = '';
+                let img = tapHead.querySelector('img');
+                let name = tapHead.querySelector('h3');
+                
+                    // make the head of the committee appear
+                
+                    members[tap.id].forEach(e => {
+                    if(e.role == 2){
+                        name.innerHTML = e.name;
+                        img.src = e.avatar;
+                    }
+                })
 
-                // make the members of the committee appear
-            let row = document.createElement('div');
-            row.classList.add('row');
-            members[tap.id].forEach((e,index) => {
-                if(index %4 == 0 && index != 0){
-                    console.log('row',row);
-                    tapMembers.innerHTML += row
-                    row = ''
-                }
-                if(e.role == 4){
-                    console.log('row',row);
-                    
-                    let content = `
-                    <div class="col-2" id = ${e.name}>
-                      <div class="circle2">
-                        <img src="${e.avatar}" class="pic">
-                      </div>
-                      <h3>${e.name}</h3>
-                    </div>`
-                    row.innerHTML += content
-                }
-            })
+                    // make the members of the committee appear
+                let row = document.createElement('div');
+                row.classList.add('row');
+                members[tap.id].forEach((e,index) => {
+                    if(index %4 == 0 && index != 0){
+                        console.log('row',row);
+                        tapMembers.innerHTML += row
+                        row = ''
+                    }
+                    if(e.role == 4){
+                        console.log('row',row);
+                        
+                        let content = `
+                        <div class="col-2" id = ${e.name}>
+                        <div class="circle2">
+                            <img src="${e.avatar}" class="pic">
+                        </div>
+                        <h3>${e.name}</h3>
+                        </div>`
+                        row.innerHTML += content
+                    }
+                })
+                
+                tapMembers.appendChild(row)
+                    // make the info content appear
             
-            tapMembers.appendChild(row)
-                // make the info content appear
-        
+            })
         })
-    })
-
+    }
+        //creating the hall of fame board
+    {
+        // get the most active member
+        let mostActive = searchForRate(membersData);
+            // not commpleted yet 
+    }
 }
 
 UseData();
+function searchForRate(data) {
+            // not commpleted yet
+    let max6 = [0, 0, 0, 0, 0, 0, 0];
+    let max6People = ['', '', '', '', '', '', ''];
+    for(let i = 0; i < data.length; i++){
+        max6.forEach((e,index) => {
+            if(data[i].rate > e){
+                max6[index] = data[i].rate;
+                max6People[index] = data[i];
+            }
+        })
+    }
+}
+
 function searchFor(Committee, data) {
     if(Committee == 1){
         for (let i = 0; i < data.length; i++) {

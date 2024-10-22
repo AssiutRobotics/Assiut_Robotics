@@ -1,0 +1,15 @@
+Mission 1:
+Task: HALL OF FRAME 
+Status: Not Started
+Notes: This will includes the higher rated members in all committees
+
+Mission 2:
+Task: Design the ui to be good for mobile
+Status: Not Started
+Notes: 
+
+Mission 3:
+Task: hr and ac doesn't wrote in this form so you have to get all members who are in hr or ac 
+Status: Not Started
+Notes: use regular expression
+
