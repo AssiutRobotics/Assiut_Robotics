@@ -21,7 +21,7 @@ const generateToken = async (payload, rememberMe) => {
 const verify = async (req, res, next) => {
     try {
         const token = req.body.token || req.params.token;
-        console.log(token);
+        console.log("token: ",token);
         if (!token) {
             res.status(401).send({ message: "token is required" });
         } else {
