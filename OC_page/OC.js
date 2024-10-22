@@ -30,7 +30,7 @@ let prodata=[];
 //   prodata = [];
 // }                      //  this code replaced with get the data from DB 
 const getComponents=async()=>{
-  const res=await fetch("../../components/getComponents")
+  const res=await fetch("https://assiutrobotics-production.up.railway.app/components/getComponents")
   if(res.ok){
     const response=await res.json();
     console.log(response);
@@ -51,7 +51,7 @@ const getComponents=async()=>{
       newpro
     }
     
-  const res=await fetch("../../components/update",{
+  const res=await fetch("https://assiutrobotics-production.up.railway.app/components/update",{
     method:"post",
     headers:{
       "Content-Type":"application/json"
@@ -171,7 +171,7 @@ const deleteOne=async(id)=>{
   data={
     id
   }
-  const res = await fetch("../../components/deleteOne",{
+  const res = await fetch("https://assiutrobotics-production.up.railway.app/components/deleteOne",{
     method:"post",
     headers:{
       "Content-Type":"application/json"
@@ -321,7 +321,7 @@ const pushToDB=async(data)=>{
 
 
 const deleteAll=async()=>{
-  const res = await fetch("../../components/deleteAll")
+  const res = await fetch("https://assiutrobotics-production.up.railway.app/components/deleteAll")
   if(res.ok){
     const response=await res.json();
     console.log(await response);

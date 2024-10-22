@@ -17,7 +17,7 @@
     <img id="logo" src="../all-images/logo.png">
     <div class="container">
 
-        <form id="signupForm" action="../members/hr" method="post">
+        <form id="signupForm" action="https://assiutrobotics-production.up.railway.app/members/hr" method="post">
             <h2>HR</h2>
 
 
@@ -66,7 +66,7 @@
                 // <option value="female">female</option>
                 onload = async function() {
 
-                    const res = await fetch("../../members/getAllMembers");
+                    const res = await fetch("https://assiutrobotics-production.up.railway.app/members/getAllMembers");
                     if (await res.ok) {
                         const response = await res.json();
                         let members = response.data.members;

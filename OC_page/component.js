@@ -3,7 +3,7 @@ var components = [];
 const container = document.getElementById("mainComponents");
 
 const getComponents = async () => {
-    const response = await fetch("../../components/getComponents")
+    const response = await fetch("https://assiutrobotics-production.up.railway.app/components/getComponents")
     if (response.ok) {
         const res = await response.json()
         components = res.data;

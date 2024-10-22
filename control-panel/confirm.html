@@ -65,7 +65,7 @@
     <div id="container"></div>
     <script>
         const getMembersData = () => {
-            return fetch('../../members/getAllMembers')
+            return fetch('https://assiutrobotics-production.up.railway.app/members/getAllMembers')
                 .then(data => data.json())
         }
         getMembersData().then((data) => {
