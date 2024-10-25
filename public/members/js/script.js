@@ -20,10 +20,10 @@ async function fetchingData() {
 const UseData = async () => {
         //get data and arrange it 
     membersData = await fetchingData();
-    console.log(membersData);                                                           // debuging
+    console.table(`membersData array =>`, membersData);                                                          // debuging
     clearDoubled(membersData);
     let heads = [];
-    let members = [[], [],[] ,[], [],[] ,[]]; // 0 => HR , 1 => PR , 2 => marketing , 3 => AC-mechanical, 4 => AC-Electrical , 5 => media , 6 => web
+    let members = [[], [],[] ,[], [],[] ,[],[]]; // 0 => HR , 1 => PR , 2 => marketing ,3 => OC, 4 => AC-mechanical, 5 => AC-Electrical , 6 => media , 7 => web
     sortMembers(membersData, members)
 
         // product is -> All members array, members array , and heads array
@@ -38,9 +38,9 @@ const UseData = async () => {
 
 
         let commitiesHeads = document.getElementById('CSlider') // this will contain the committees taps 
-        let arrOfCommities = ['HR', 'PR', 'marketing', 'AC-mechanic','AC-electric', 'media', 'web']
+        let arrOfCommities = ['HR', 'PR', 'marketing', 'OC' , 'AC_mechanic','AC_electric', 'media', 'web']  // there is the form of committee name i deal with it if it has been changed change it please 
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < arrOfCommities.length; i++) {
             let pciture = searchFor(arrOfCommities[i], data)
 
             heads.push(pciture)
@@ -57,7 +57,7 @@ const UseData = async () => {
     }
     createHeadsBoard()
         // debugging
-    console.table(`membersData array =>`, membersData);
+    
     
     console.table(`heads array =>`,heads);
     console.table(`members array =>`,members);
@@ -66,13 +66,19 @@ const UseData = async () => {
     {
         let taps = document.querySelectorAll('.heads');
         let tapHead = document.querySelectorAll('.head')[0];
+        let hint = document.getElementsByClassName('hint')[0];
         let tapMembers = document.querySelectorAll('.members')[0];    
         let col8 = document.querySelectorAll('.col-8')[0];
         let col4 = document.querySelectorAll('.col-4')[0];
         let vline = document.querySelectorAll('.vline')[0];
-        let hint = document.querySelectorAll('.hint')[0];
+        
         taps.forEach((tap,index) => {
             tap.addEventListener('click', (t) => {
+                if(window.innerWidth <= 1440){
+                    arrow.classList.remove('disabled')
+
+                }
+
                 if(tapHead.classList.contains('disabled')){
                     tapHead.classList.remove('disabled')
                 }
@@ -87,7 +93,7 @@ const UseData = async () => {
                 }
                 if(!hint.classList.contains('disabled')){
                     hint.classList.add('disabled')
-                }
+                }   
                 tapMembers.innerHTML = '';
                 let img = tapHead.querySelector('img');
                 let name = tapHead.querySelector('h3');
@@ -95,24 +101,22 @@ const UseData = async () => {
                     // make the head of the committee appear
                 
                     members[tap.id].forEach(e => {
-                    if(e.role == 2){
+                        if(e.role == 2){
                         name.innerHTML = e.name;
-                        img.src = e.avatar;
+                        img.src = e.avatar; 
                     }
                 })
-
+                members[tap.id].forEach(e => {
+                    if(e.role == 1){
+                    members[tap.id].splice(members[tap.id].indexOf(e),1);
+                }
+            })
                     // make the members of the committee appear
-                let row = document.createElement('div');
-                row.classList.add('row');
+                tapMembers.innerHTML = '';
                 members[tap.id].forEach((e,index) => {
-                    if(index %4 == 0 && index != 0){
-                        console.log('row',row);
-                        tapMembers.innerHTML += row
-                        row = ''
-                    }
-                    if(e.role == 4){
-                        console.log('row',row);
-                        
+                    
+                    if(e.role != 2 && e.role != 1){
+                       
                         let content = `
                         <div class="col-2" id = ${e.name}>
                         <div class="circle2">
@@ -120,11 +124,11 @@ const UseData = async () => {
                         </div>
                         <h3>${e.name}</h3>
                         </div>`
-                        row.innerHTML += content
+                        tapMembers.innerHTML += content
                     }
                 })
-                
-                tapMembers.appendChild(row)
+        
+
                     // make the info content appear
             
             })
@@ -134,30 +138,48 @@ const UseData = async () => {
     {
         // get the most active member
         let mostActive = searchForRate(membersData);
+        let contianer = document.getElementById('hallmember');
+        let imgs = Array.from(contianer.querySelectorAll('img'));
+        imgs.forEach((e,index) => {
+            e.src = mostActive[index].avatar;
+            
+        })
+        
+        
             // not commpleted yet 
     }
+
 }
 
 UseData();
 function searchForRate(data) {
             // not commpleted yet
-    let max6 = [0, 0, 0, 0, 0, 0, 0];
-    let max6People = ['', '', '', '', '', '', ''];
+    let mostActive = [];
+    let rates = []
+    let max = 0;
     for(let i = 0; i < data.length; i++){
-        max6.forEach((e,index) => {
-            if(data[i].rate > e){
-                max6[index] = data[i].rate;
-                max6People[index] = data[i];
-            }
-        })
+        let obj = {rate :data[i].rate, avatar : data[i].avatar}
+        if(data[i].rate > max){
+            max = data[i].rate;
+            rates.push(obj);
+        }
+        else{
+            rates.unshift(obj);
+        }
     }
+    mostActive = rates.slice(-6);
+    return mostActive;
+}
+function includesWordAtStart(str, word) {
+    // Create a regular expression to match the word at the start or followed by a hyphen
+    const regex = new RegExp(`^${word}\\b|${word}-`, 'i');
+    return regex.test(str);
 }
 
 function searchFor(Committee, data) {
     if(Committee == 1){
         for (let i = 0; i < data.length; i++) {
             if(data[i].role == Committee){
-                console.log(`search result -->`,data[i].avatar);
                 return data[i].avatar;
             }
         }
@@ -165,8 +187,8 @@ function searchFor(Committee, data) {
     else{
         for (let i = 0; i < data.length; i++) {
                 
-            if (data[i].committee == Committee && data[i].role == /*For testing we will use the number*/ 2 /*'head'*/) {
-                console.log(`search result -->`,data[i].avatar);
+            if (includesWordAtStart(data[i].committee, Committee)  && data[i].role == /*For testing we will use the number*/ 2 /*'head'*/) {
+
                 return data[i].avatar;
             }
         }
@@ -175,20 +197,22 @@ function searchFor(Committee, data) {
 
 function sortMembers(data, members) {
     for (let i = 0; i < data.length; i++) {
-        if (data[i].committee == 'HR') {
+        if (includesWordAtStart(data[i].committee , 'HR')) {
             members[0].push(data[i]);
         } else if (data[i].committee == 'PR') {
             members[1].push(data[i]);
         } else if (data[i].committee == 'marketing') {
             members[2].push(data[i]);
-        } else if (data[i].committee == 'AC-mechanic') {
+        }else if (data[i].committee == 'OC') {
             members[3].push(data[i]);
-        }else if (data[i].committee == 'AC-electric') {
+        }else if (data[i].committee == 'AC_mechanic') {
             members[4].push(data[i]);
-        } else if (data[i].committee == 'media') {
+        }else if (data[i].committee == 'AC_electric') {
             members[5].push(data[i]);
-        } else if (data[i].committee == 'web') {
+        } else if (data[i].committee == 'media') {
             members[6].push(data[i]);
+        } else if (data[i].committee == 'web') {
+            members[7].push(data[i]);
         }
     }
 }
@@ -230,5 +254,4 @@ function clearDoubled(data){
     console.log("Data after filter : " ,data);
     
 }
-
 
