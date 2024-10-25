@@ -19,6 +19,7 @@
 </head>
 
 <body onload="load()">
+    <div class="magnify disabled"><img id="magnified" src=""></div>
 
 
     <nav>
@@ -76,14 +77,14 @@
 
         <div class="content">
             <div class="left">
-                <img id="human" src="../all-images/human.png" alt="notfound">
+                <img id="human" src="#" alt="notfound">
                 <div class="info">
                     <h2 id="nameHuman">Hembo Tingor</h2>
                     <p id="specialty">Web Designer</p>
                     <form  name="profile_pic" enctype="multipart/form-data">
                         <input type="file" name="image" id="changePhoto" class="disabled">
                         <input type="hidden" name="token"  class="disabled">
-                        <label for="changePhoto"><i class="fa-regular fa-pen-to-square"></i></label>  
+                        <label id="change" for="changePhoto"><i class="fa-regular fa-pen-to-square"></i></label>  
                     </form>
                 </div>
             </div>
@@ -176,6 +177,7 @@
                     console.log(JSONresponse);
                     id = JSONresponse.data.id;
                     edit()
+
                     if (JSONresponse.data.role < 4) {
                         document.getElementById('control-panel').style.display = "flex";
                     }
@@ -200,9 +202,11 @@
                     document.getElementById("email").innerHTML = JSONresponse.data.email;
                     document.getElementById("phone").innerHTML = JSONresponse.data.phoneNumber;
                     document.getElementById("specialty").innerHTML = JSONresponse.data.committee;
-                    document.getElementById("human").src = `../../uploads/${JSONresponse.data.avatar}`;
+                    document.getElementById("human").src =JSONresponse.data.avatar;
+                    document.getElementById("magnified").src = JSONresponse.data.avatar;
                     window.localStorage.setItem("role", JSONresponse.data.role);
                     window.localStorage.setItem("committee", JSONresponse.data.committee);
+                    
                 }
             } else {
                 window.location.href = "../login/login.html"
@@ -250,7 +254,19 @@
                 })
             })
         }
-        
+        function magnifyImage(){
+            let img = document.getElementById("human");
+            let magnify = document.querySelector(".magnify");
+            
+            img.addEventListener('click',() =>{
+                magnify.classList.remove('disabled')
+            })
+
+            magnify.addEventListener('click',() =>{
+                magnify.classList.add('disabled')
+            })
+        }
+        magnifyImage()
     </script>
 
 
