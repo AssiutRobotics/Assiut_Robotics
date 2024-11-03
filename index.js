@@ -39,8 +39,20 @@ app.use('/components',componentRouter)
 
 app.use("/upload",memberRouter)
 // app.use("")
-app.get("/",(req,res)=>{    
-    res.end("server run successfully ")
+//app.get("/", (req,res)=>{    
+   // res.end("server run successfully ")
+//})
+app.get("/",async (req,res)=>{    
+  try{
+    const members=await members.findBycommittee(req.params.committee);
+  
+  if(!committee){
+       return res.status(404).json({msg:"committee not found"})
+  }
+  res.json(members);
+  }catch(err){
+    return res.status(400).json({msg: "error"})
+  }
 })
  
 app.use((error, req, res ,next)=>{
@@ -59,6 +71,7 @@ app.use((error, req, res ,next)=>{
 
 
 const OTP=require('./utils/otp');
+const member = require('./mongoose.models/member');
 
 
 //   app.get('/genOTP',);
