@@ -20,6 +20,8 @@ const asyncWrapper = require("../middlleware/asyncWrapper");
 const sendEmail = require("../utils/sendEmail");
 // otp
 const OTP = require("../utils/otp");
+
+const createError=require("../utils/createError")
 const { decode } = require("jsonwebtoken");
 
 const verifyEmail = async (req, res) => {
@@ -54,8 +56,8 @@ const verifyEmail = async (req, res) => {
     }
 };
 
-const createAccount = async (req, res) => {
-    try {
+const createAccount =asyncWrapper( async (req, res,next) => {
+
         // console.log(req.body);
         // console.log(req.file);
         let { name, email, password, committee, gender, phoneNumber } = req.decoded;
@@ -63,11 +65,8 @@ const createAccount = async (req, res) => {
         console.log("old member", oldEmail);
         if (oldEmail) {
             console.log("old member", oldEmail);
-            return res.status(400).json({
-                status: httpStatusText.FAIL,
-                data: null,
-                message: "This email is already in use. Please log in or use a different email.",
-            });
+            const error=createError(400, httpStatusText.FAIL,"This email is already in use. Please log in or use a different email.")
+            throw(error);
         }
 
         let hashedpass = await bcrypt.hashing(password);
@@ -82,22 +81,20 @@ const createAccount = async (req, res) => {
         });
 
         await newMember.save();
-        const token = await jwt.generateToken({ email });
-
         res.status(201).json({
             status: httpStatusText.SUCCESS,
             data: null,
             message: "Your account has been successfully created. <br> wait until your request be accepted",
         });
-    } catch (error) {
-        console.log(error.message);
-        res.status(400).json({
-            status: httpStatusText.ERROR,
-            data: null,
-            message: error.message,
-        });
-    }
-};
+
+        // console.log(error.message);
+        // res.status(400).json({
+        //     status: httpStatusText.ERROR,
+        //     data: null,
+        //     message: error.message,
+        // });
+    
+})
 
 const login = async (req, res) => {
     try {

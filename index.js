@@ -27,12 +27,15 @@ app.use(body_parser.urlencoded({extended:true}));
 
 
 
-app.use("/book",express.static(__dirname+"/books "))
 app.use("/",express.static(__dirname+"/views"))
 app.use("/uploads",express.static(__dirname+"/uploads"))
 app.use("/members",memberRouter);
-app.use('/blogs',blogRouter)
-app.use('/components',componentRouter)
+app.use('/blogs',blogRouter);
+app.use('/components',componentRouter);
+
+app.use("*",(req,res,next)=>{
+  res.status(401).json({status:401,message:"not found "});
+})
 
 //draft
 
@@ -98,10 +101,10 @@ const member = require('./mongoose.models/member');
 // } 
   
     // });
-  setInterval(() => {
+  // setInterval(() => {
     // fetch("https://assiut-robotics-website.onrender.com/")
     // console.log("sen req");
-  }, 3000);
+  // }, 3000);
 
 app.listen(PORT,()=>{
     console.log("server is run and listen to port : ",`http://localhost:${PORT}/`); 
