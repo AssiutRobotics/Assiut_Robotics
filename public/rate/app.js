@@ -59,13 +59,14 @@ async function makeAll(){
                 // objOfAllMembersRated[id]
                 //
                 console.log("Data will be sent :",objOfAllMembersRated[id])
-                fetch('https://assiutrobotics-production.up.railway.app/members/rate', {
+                fetch('https://assiut-robotics-zeta.vercel.app/members/rate', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Authorization": "Bearer " + localStorage.getItem("token") // update token to be in the header
+                   
                     },
                     body: {
-                        "token": "fsadlhjfasdkjfoawiefbsandoilkahdscvoas;gds;lsldll",
                         // ID: Data[id]._id,
                         // rate: parent.children[2].value
                     },

@@ -30,7 +30,29 @@ form {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+.successAnimation{
+    
+    border: 1px solid #0f0;
+    animation: success 0.5s linear;
+    box-shadow: 1px 1px 1px #0f0;
+}
+@keyframes success {
+    0% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 #logo {
     width: 110px;
     height: 60px;
@@ -38,7 +60,6 @@ form {
     margin-top: 35px;
     float: left;
 }
-
 .container h2 {
     font-size: 32px;
     text-align: center;
@@ -144,4 +165,14 @@ form {
 
 .message {
     color: rgb(209 31 37);
+}
+.error_handler{
+    text-align: center;
+    color: red;
+}
+.disabled{
+    display: none;
+}
+.success{
+    color: green !important;
 }

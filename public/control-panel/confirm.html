@@ -65,7 +65,7 @@
     <div id="container"></div>
     <script>
         const getMembersData = () => {
-            return fetch('https://assiutrobotics-production.up.railway.app/members/getAllMembers')
+            return fetch('https://assiut-robotics-zeta.vercel.app/members/getAllMembers')
                 .then(data => data.json())
         }
         getMembersData().then((data) => {
@@ -142,14 +142,16 @@
                 console.log(id);
 
                 let data = {
-                    token: window.localStorage.getItem("token"),
+                    
                     id: id,
                     role: role
                 }
                 const response = await fetch("../../members/confirm", {
                     method: "post",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token") // update token to be in the header
+                           
                     },
                     body: JSON.stringify(data)
                 })

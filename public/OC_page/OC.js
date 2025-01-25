@@ -51,7 +51,7 @@ const getComponents=async()=>{
       newpro
     }
     
-  const res=await fetch("https://assiutrobotics-production.up.railway.app/components/update",{
+  const res=await fetch("https://assiut-robotics-zeta.vercel.app/components/update",{
     method:"post",
     headers:{
       "Content-Type":"application/json"
@@ -171,7 +171,7 @@ const deleteOne=async(id)=>{
   data={
     id
   }
-  const res = await fetch("https://assiutrobotics-production.up.railway.app/components/deleteOne",{
+  const res = await fetch("https://assiut-robotics-zeta.vercel.app/components/deleteOne",{
     method:"post",
     headers:{
       "Content-Type":"application/json"

@@ -24,7 +24,7 @@
     <div id="myUniqueHeaderID"></div>
     <div class="container">
 
-        <form id="loginForm" action="https://assiutrobotics-production.up.railway.app/members/login" method="post">
+        <form id="loginForm" action="https://assiut-robotics-zeta.vercel.app/members/login" method="post">
             <h2>MEMBER LOGIN</h2>
             <div class="input-box">
                 <input type="email" name="email" placeholder="email" required>
@@ -59,7 +59,7 @@
                 // TODO do something here to show user that form is being submitted
                 const response = await fetch(event.target.action, {
                     method: 'POST',
-                    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+                    body: new URLSearchParams(new FormData(event.target))
                 });
                 let JSONresponse = await response.json();
                 if (!response.ok) {

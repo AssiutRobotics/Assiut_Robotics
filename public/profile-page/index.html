@@ -155,18 +155,13 @@
     <script>
         let id;
         const load = async () => {
-            let token = window.localStorage.getItem("token");
-            console.log(token);
-            let data = {
-                token,
-            }
             if (token) {
-                let response = await fetch("https://assiutrobotics-production.up.railway.app/members/verify", {
+                let response = await fetch("https://assiut-robotics-zeta.vercel.app/members/verify", {
                     method: "post",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token") // update token to be in the header
                     },
-                    body: JSON.stringify(data),
                 });
 
                 if (!response.ok) {
@@ -229,8 +224,6 @@
            
            field.addEventListener("change", (e) => {
                 let form = document.forms["profile_pic"];
-                form["token"].value = window.localStorage.getItem("token");
-                console.log(form["token"].value); 
                 let body = new FormData(form);
                 
                
@@ -241,11 +234,12 @@
                 // }     
                 // console.log(obj); // token : token, ID: undefined, file: File
 
-                fetch("https://assiutrobotics-production.up.railway.app/members/changeProfileImage", {
+                fetch("https://assiut-robotics-zeta.vercel.app/members/changeProfileImage", {
                     method: "POST",
-                    // headers: {
-                    //     "Content-Type": "application/json"
-                    // },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + localStorage.getItem("token") // update token to be in the header
+                    },
                     body: body
                 }).then(res => res.json()).then(data => {
                     console.log(data);

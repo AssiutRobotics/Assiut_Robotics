@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="login.css">
-    <title> Sign In Form</title>
+    <title> Sign Up Form</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="../main/footerAndheader.css" />
@@ -24,9 +24,10 @@
     <div id="myUniqueHeaderID"></div>
 
     <div class="container">
-
-        <form id="signupForm" action="https://assiutrobotics-production.up.railway.app/members/verifyEmail" method="post">
+        
+        <form id="signupForm" action="https://assiut-robotics-zeta.vercel.app/members/verifyEmail" method="post">
             <h2>MEMBER SIGN UP</h2>
+            <h3 class="error_handler disabled">text</h3>
             <div class="input-box">
                 <input type="text" name="name" placeholder="Username" required>
                 <i class='bx bxs-user'></i>
@@ -77,7 +78,7 @@
                 <label for="picture">upload profile picture</label>
                 <input type="file" name="avatar" id="picture">
             </div> -->
-            <div class="btn">
+            <div class="btn " >
                 <input class="btn" type="submit" value="sign up">
                 <!-- <i class='bx bxs-lock' style="margin-left: 85%;"></i> -->
             </div>
@@ -110,49 +111,59 @@
                     console.log("input", password, confirm_password);
                 })
 
-
-                // console.log(myform);
-                // fetch api 
-
                 document.forms['signupForm'].addEventListener('submit', async (event) => {
                     event.preventDefault();
                     // TODO do something here to show user that form is being submitted
                     // Create a FormData object
+                    
                     const formData = new URLSearchParams(new FormData(event.target))
-
+                    
                     const element = document.getElementById("signupForm")
                     const data = new FormData(element)
                     const form = Array.from(data.entries())
-
+                    console.log('---------- for test--------------');
+                    
+                    console.log('form ', form);
+                    console.log('urlsearch ',Array.from(formData.entries()));
+                    
                     // Append file input data to FormData object
                     // const fileInput = document.getElementById('picture');
                     // console.log('avatar', fileInput.files[0]);
                     // formData.append('avatar', fileInput.files[0]);
-                    console.log(formData);
                     const response = await fetch(event.target.action, {
                         method: 'POST',
 
                         body: new URLSearchParams(new FormData(event.target))
-                    });
-                    let JSONresponse = await response.json();
-                    if (!response.ok) {
+                    }).catch(error => {
+                        document.getElementsByClassName('error_handler')[0].classList.remove('disabled');
+                        document.getElementsByClassName('error_handler')[0].innerHTML = error;
+                        alert(error)}
+                    )
+                    
+                     let JSONresponse = await response.json();
+                     if (!response.ok) {
 
-                        console.log(JSONresponse);
-                        document.querySelector(".message").innerHTML = JSONresponse.message;
+                         console.log('---->',JSONresponse);
+                         let messageToUser = '';
+                         for(let i = 32 ;i < JSONresponse.message[0].message.length ; i++){
+                             messageToUser += JSONresponse.message[0].message[i] ;
+                         }
+                         document.querySelector(".message").innerHTML = messageToUser;
+                         document.querySelector(".message").classList.remove('success');
+                         document.querySelector("#signupForm").classList.remove('successAnimation');
+                         alert(JSONresponse.message[0].message);
 
-                    } else {
-                        console.log('aaa', JSONresponse);
+                     } else {
+                         console.log('--->', JSONresponse);
 
-                        document.querySelector(".message").innerHTML = JSONresponse.message;
-
-                    }
-
-
-
+                         document.querySelector(".message").innerHTML = JSONresponse.message;
+                         document.querySelector(".message").classList.add('success');
+                         document.querySelector("#signupForm").classList.add('successAnimation');
+                     }
                 })
-
-            } catch (error) {
-                console.log("error: ", error);
+            }
+            catch (error) {
+                alert(error)
             }
         </script>
 

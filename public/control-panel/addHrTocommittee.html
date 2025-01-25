@@ -17,7 +17,7 @@
     <img id="logo" src="../all-images/logo.png">
     <div class="container">
 
-        <form id="signupForm" action="https://assiutrobotics-production.up.railway.app/members/hr" method="post">
+        <form id="signupForm" action="https://assiut-robotics-zeta.vercel.app/members/hr" method="post">
             <h2>HR</h2>
 
 
@@ -97,7 +97,6 @@
                     // TODO do something here to show user that form is being submitted
                     console.log(window.localStorage.getItem("token"));
                     let data = {
-                        token: window.localStorage.getItem("token"),
                         id: event.target.id.value,
                         committee: event.target.committee.value
                     }
@@ -105,7 +104,9 @@
                     const response = await fetch(event.target.action, {
                         method: 'POST',
                         headers: {
-                            "Content-Type": "application/json"
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + localStorage.getItem("token") // update token to be in the header
+                           
                         },
                         body: JSON.stringify(data) // event.target is the form
                     });
