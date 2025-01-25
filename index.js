@@ -27,36 +27,38 @@ app.use(body_parser.urlencoded({extended:true}));
 
 
 
-app.use("/",express.static(__dirname+"/views"))
-app.use("/uploads",express.static(__dirname+"/uploads"))
+// app.use("/",express.static(__dirname+"/views"))
+// app.use("/uploads",express.static(__dirname+"/uploads"))
 app.use("/members",memberRouter);
-app.use('/blogs',blogRouter);
-app.use('/components',componentRouter);
+// app.use('/blogs',blogRouter);
+// app.use('/components',componentRouter);
+// app.get("/",async (req,res)=>{    
+//   try{
+//     const members=await members.findBycommittee(req.params.committee);
+  
+//   if(!committee){
+//        return res.status(404).json({msg:"committee not found"})
+//   }
+//   res.json(members);
+//   }catch(err){
+//     return res.status(400).json({msg: "error"})
+//   }
+// })
+
 
 app.use("*",(req,res,next)=>{
-  res.status(401).json({status:401,message:"not found "});
+  res.status(404).json({status:404,message:"not found "});
 })
 
 //draft
 
 
-app.use("/upload",memberRouter)
+// app.use("/upload",memberRouter)
 // app.use("")
 //app.get("/", (req,res)=>{    
    // res.end("server run successfully ")
 //})
-app.get("/",async (req,res)=>{    
-  try{
-    const members=await members.findBycommittee(req.params.committee);
-  
-  if(!committee){
-       return res.status(404).json({msg:"committee not found"})
-  }
-  res.json(members);
-  }catch(err){
-    return res.status(400).json({msg: "error"})
-  }
-})
+
  
 app.use((error, req, res ,next)=>{
     res.status(500).json(  { status:httpStatusText.ERROR,

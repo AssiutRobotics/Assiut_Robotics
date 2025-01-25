@@ -23,38 +23,44 @@ const OTP = require("../utils/otp");
 
 const createError=require("../utils/createError")
 const { decode } = require("jsonwebtoken");
-
-const verifyEmail = async (req, res) => {
-    try {
+const fs=require("fs")
+const htmlContent_ofVrify=fs.readFileSync("./htmlEmails/verifyEmail.html","utf-8");
+const verifyEmail =asyncWrapper( async (req, res,next) => {
         let { name, email, password, committee, gender, phoneNumber } = req.body;
-        const token = await jwt.generateToken({ name, email, password, committee, gender, phoneNumber }, "5m");
+        let oldEmail = await member.findOne({ email });
+        if (oldEmail) {
+            console.log("old member", oldEmail);
+            const error=createError(400, httpStatusText.FAIL,"This email is already in use. Please log in or use a different email.")
+            throw(error);
+        }
+
+        let hashedpass = await bcrypt.hashing(password);
+        const newMember = new member({
+            name,
+            email,
+            password:hashedpass,
+            committee,
+            gender,
+            phoneNumber,
+        })
+        await newMember.save();
+        const token = await jwt.generateToken({  email }, "10m");
+        const token_url=`https://assiut-robotics-website.vercel.app/members/createAccount/${token}`
         console.log("req.body is : ", req.body);
         await sendEmail({
             email: email,
-            subject: "subject ",
-            text: "my text",
-            html: `
-    <p>Please verify your email by clicking on the link below:</p>
-    <br><br>
-    <a href="https://assiut-robotics-website.vercel.app/members/createAccount/${token}">Verify your email</a>
-  `,
+            subject: "Confirm Your Email - Assiut Robotics Team",
+            text: "Verify Email",
+            html:htmlContent_ofVrify.replace('{{token_url}}',token_url)            ,
         });
         res.status(200).json({
             status: httpStatusText.SUCCESS,
             data: null,
             message: "verify your email by click on the link on your email ",
-            code: 400,
+         
         });
-    } catch (error) {
-        console.log(error);
-        res.status(400).json({
-            status: httpStatusText.FAIL,
-            data: null,
-            message: error.message,
-            code: 400,
-        });
-    }
-};
+
+});
 
 const createAccount =asyncWrapper( async (req, res,next) => {
 

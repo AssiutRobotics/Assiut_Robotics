@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const createError=require("../utils/createError")
 const httpStatusText=require("../utils/httpStatusText")
+const asyncWrapper=require("../middlleware/asyncWrapper")
+
 const generateToken = async (payload, rememberMe) => {
 
     try {
@@ -19,7 +21,7 @@ const generateToken = async (payload, rememberMe) => {
 }
 
 
-const verify = asyncHandler(
+const verify = asyncWrapper(
     async (req, res, next) => {
     
         console.log("verify");
